@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Options} from "ngx-bootstrap/positioning/models";
+
+
 
 @Component({
   selector: 'app-grupo-produtos',
@@ -12,9 +13,17 @@ import {Options} from "ngx-bootstrap/positioning/models";
 
 export class GrupoProdutosComponent implements OnInit {
 
-  public grupoProdutos: any
+  public grupoProdutos: any=[]
+  private _filtroGrupoProdutos: string = ""
 
+  public get filtroGrupoProdutos(): string{
+    return this._filtroGrupoProdutos
+  }
 
+public set filtroGrupoProdutos(value: string){
+    this._filtroGrupoProdutos = value
+    this.grupoProdutos = this.filtroGrupoProdutos ? this.filtrarGrupoProdutos(this.grupoProdutos) : this.grupoProdutos
+}
   constructor(private http: HttpClient) {
   }
 
@@ -29,4 +38,10 @@ export class GrupoProdutosComponent implements OnInit {
     )
   }
 
+  private filtrarGrupoProdutos(filtrarPor: string): any {
+    filtrarPor = filtrarPor.toString().toLowerCase()
+    return this.grupoProdutos.filter(
+        (grupo: { nome: string; }) => grupo.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    )
+  }
 }
