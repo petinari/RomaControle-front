@@ -1,0 +1,25 @@
+<h3>Grupo Produtos</h3>
+<hr />
+
+<form action="" class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="Buscar" />
+    <button class="btn btn-outline-success">Buscar</button>
+  </div>
+</form>
+<table class="table table-striped">
+  <thead class="table-dark">
+  <tr>
+    <th style="width: 30.66%">#</th>
+    <th>Nome</th>
+    <th class="text-center">Opções</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let grupoProduto of grupoProdutos">
+    <td>{{grupoProduto.id}}</td>
+    <td>{{grupoProduto.nome}}</td>
+    <td>11111111</td>
+  </tr>
+  </tbody>
+</table>
