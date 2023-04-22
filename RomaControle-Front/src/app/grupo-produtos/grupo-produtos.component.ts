@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GrupoProdutosService } from 'src/services/GrupoProdutos.service';
+import { GrupoProdutos } from 'src/models/GrupoProdutos';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-grupo-produtos',
@@ -7,9 +10,25 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./grupo-produtos.component.scss'],
 })
 export class GrupoProdutosComponent implements OnInit {
-  public grupoProdutos: any = [];
+  modalRef?: BsModalRef;
+  message?: string;
+  public grupoProdutos: GrupoProdutos[] = [];
   private _filtroGrupoProdutos: string = '';
-  grupoProdutosFiltrados: any = [];
+  grupoProdutosFiltrados: GrupoProdutos[] = [];
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirm(): void {
+    this.message = 'Confirmed!';
+    this.modalRef?.hide();
+  }
+
+  decline(): void {
+    this.message = 'Declined!';
+    this.modalRef?.hide();
+  }
 
   public get filtroGrupoProdutos(): string {
     return this._filtroGrupoProdutos;
@@ -21,21 +40,22 @@ export class GrupoProdutosComponent implements OnInit {
       ? this.filtrarGrupoProdutos(this.filtroGrupoProdutos)
       : this.grupoProdutos;
   }
-  constructor(private http: HttpClient) {}
+  constructor(
+    private grupoProdutosService: GrupoProdutosService,
+    private modalService: BsModalService
+  ) {}
 
   ngOnInit() {
     this.getGrupoProdutos();
   }
   getGrupoProdutos() {
-    this.http
-      .get('http://localhost:8080/api/produtos/grupos')
-      .subscribe((resp) => {
-        this.grupoProdutos = resp;
-        this.grupoProdutosFiltrados = this.grupoProdutos;
-      });
+    this.grupoProdutosService.getGrupoProdutos().subscribe((resp) => {
+      this.grupoProdutos = resp;
+      this.grupoProdutosFiltrados = this.grupoProdutos;
+    });
   }
 
-  private filtrarGrupoProdutos(filtrarPor: string): any {
+  private filtrarGrupoProdutos(filtrarPor: string): GrupoProdutos[] {
     filtrarPor = filtrarPor.toString().toLocaleLowerCase();
     return this.grupoProdutos.filter(
       (grupo: { nome: any }) =>

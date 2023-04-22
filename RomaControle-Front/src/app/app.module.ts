@@ -7,12 +7,21 @@ import { GrupoProdutosComponent } from './grupo-produtos/grupo-produtos.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DateFormatPipePipe } from './helpers/DateFormatPipe.pipe';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent, GrupoProdutosComponent, NavComponent],
+  declarations: [
+    AppComponent,
+    GrupoProdutosComponent,
+    NavComponent,
+    DateFormatPipePipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,6 +29,9 @@ import {FormsModule} from "@angular/forms";
     CollapseModule.forRoot(),
     HttpClientModule,
     FormsModule,
+    TooltipModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [],
 })
