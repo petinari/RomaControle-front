@@ -3,25 +3,35 @@
 
 <div class="form-inline">
   <div class="form-group mb-2">
-    <input type="text" class="form-control mr-2" placeholder="Buscar" [(ngModel)]="filtroGrupoProdutos"/>
-    <button class="btn btn-outline-success">Buscar</button>
+    <label class="mr-2">Filtro</label>
+    <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="Buscar"
+      [(ngModel)]="filtroGrupoProdutos"
+    />
   </div>
 </div>
-<h3>{{filtroGrupoProdutos}}</h3>
+
 <table class="table table-striped">
   <thead class="table-dark">
-  <tr class="text-center">
-    <th style="width: 30.66%">#</th>
-    <th>Nome</th>
-    <th >Opções</th>
-  </tr>
+    <tr class="text-center">
+      <th style="width: 30.66%">#</th>
+      <th>Nome</th>
+      <th>Opções</th>
+    </tr>
   </thead>
   <tbody *ngIf="grupoProdutos">
-  <tr *ngFor="let grupoProduto of grupoProdutos">
-    <td>{{grupoProduto.id}}</td>
-    <td>{{grupoProduto.nome}}</td>
-    <td class="text-center">11111111</td>
-  </tr>
+    <tr class="text-center" *ngFor="let grupoProduto of grupoProdutosFiltrados">
+      <td>{{ grupoProduto.id }}</td>
+      <td>{{ grupoProduto.nome }}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2">
+          Editar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
   </tbody>
   <tfoot *ngIf="!grupoProdutos">
     <tr>
