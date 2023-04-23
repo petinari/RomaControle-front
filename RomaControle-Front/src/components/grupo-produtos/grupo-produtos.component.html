@@ -1,4 +1,4 @@
-<h3>Grupo Produtos</h3>
+<app-titulo [titulo]="'Evento'"></app-titulo>
 <hr />
 
 <div class="form-inline">
@@ -44,7 +44,7 @@
       </td>
     </tr>
   </tbody>
-  <tfoot *ngIf="!grupoProdutos">
+  <tfoot *ngIf="!grupoProdutos.length">
     <tr>
       <td colspan="8" class="text-center">
         <h4>Nenhum grupo encontrado.</h4>

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { GrupoProdutosService } from 'src/services/GrupoProdutos.service';
 import { GrupoProdutos } from 'src/models/GrupoProdutos';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-grupo-produtos',
@@ -23,6 +25,7 @@ export class GrupoProdutosComponent implements OnInit {
   confirm(): void {
     this.message = 'Confirmed!';
     this.modalRef?.hide();
+    this.toastr.success('Hello world!', 'Toastr fun!');
   }
 
   decline(): void {
@@ -42,19 +45,36 @@ export class GrupoProdutosComponent implements OnInit {
   }
   constructor(
     private grupoProdutosService: GrupoProdutosService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
+    /** spinner starts on init */
+    this.spinner.show();
+
     this.getGrupoProdutos();
-  }
-  getGrupoProdutos() {
-    this.grupoProdutosService.getGrupoProdutos().subscribe((resp) => {
-      this.grupoProdutos = resp;
-      this.grupoProdutosFiltrados = this.grupoProdutos;
-    });
+
+    this.spinner.hide();
   }
 
+  //get grupo produtos and subscribe to the response
+  getGrupoProdutos() {
+    this.grupoProdutosService.getGrupoProdutos().subscribe({
+      next: (grupoProdutos) => {
+        this.grupoProdutos = grupoProdutos;
+        this.grupoProdutosFiltrados = this.grupoProdutos;
+      },
+      error: (err: Error) => {
+        this.spinner.hide();
+        this.toastr.error(
+          `Erro ao tentar carregar grupo de produtos: ${err.message}`
+        );
+      },
+      complete: () => this.spinner.hide(),
+    });
+  }
   private filtrarGrupoProdutos(filtrarPor: string): GrupoProdutos[] {
     filtrarPor = filtrarPor.toString().toLocaleLowerCase();
     return this.grupoProdutos.filter(
