@@ -8,6 +8,12 @@
     </div>
   </div>
   <div>
-    <button *ngIf="listarButton" class="btn btn-outline-light">Listar {{ this.titulo }}</button>
+    <button
+      *ngIf="listarButton"
+      class="btn btn-outline-light"
+      (click)="listAllItens()"
+    >
+      Listar {{ this.titulo }}
+    </button>
   </div>
 </div>

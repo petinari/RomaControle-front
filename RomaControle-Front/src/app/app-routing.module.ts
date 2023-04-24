@@ -4,11 +4,27 @@ import { GrupoProdutosComponent } from '../components/grupo-produtos/grupo-produ
 import { ContatosComponent } from 'src/components/contatos/contatos.component';
 import { DashboardComponent } from 'src/components/dashboard/dashboard.component';
 import { PerfilComponent } from 'src/components/perfil/perfil.component';
+import { GrupoProdutosListaComponent } from 'src/components/grupo-produtos/grupo-produtos-lista/grupo-produtos-lista.component';
+import { GrupoProdutoDetalheComponent } from 'src/components/grupo-produtos/grupo-produto-detalhe/grupo-produto-detalhe.component';
 
 const routes: Routes = [
   {
-    path: 'grupoprodutos',
+    path: 'grupodeprodutos',
     component: GrupoProdutosComponent,
+    children: [
+      {
+        path: 'detalhe/:id',
+        component: GrupoProdutoDetalheComponent,
+      },
+      {
+        path: 'detalhe',
+        component: GrupoProdutoDetalheComponent,
+      },
+      {
+        path: 'lista',
+        component: GrupoProdutosListaComponent,
+      },
+    ],
   },
   {
     path: 'contatos',

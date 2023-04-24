@@ -1,11 +1,3 @@
-<app-titulo
-  [titulo]="'Eventos'"
-  [iconClass]="'fa fa-user'"
-  [listarButton]="true"
-></app-titulo>
-
-<hr />
-
 <div class="card rounded shadow-lg p-3">
   <div class="d-flex">
     <div class="flex-fill">
@@ -22,7 +14,10 @@
       </div>
     </div>
     <div>
-      <a class="d-flex btn btn-outline-primary" href="">
+      <a
+        class="d-flex btn btn-outline-primary"
+        routerLink="/grupoprodutos/detalhe"
+      >
         <i class="fa fa-plus-circle my-1 mr-1"></i>
         <b class="d-none d-sm-block">Novo</b>
       </a>
