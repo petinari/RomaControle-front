@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootswatch/dist/cosmo/bootstrap.min.css";
+// TODO: Note: Replace ^[theme]^ (examples: darkly, slate, cosmo, spacelab, and superhero. See https://bootswatch.com for current theme names.)
 
 /* Importing Bootstrap SCSS file. */
 @import "./node_modules/bootstrap/scss/bootstrap";

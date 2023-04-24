@@ -20,6 +20,8 @@ import { ContatosComponent } from 'src/components/contatos/contatos.component';
 import { DashboardComponent } from 'src/components/dashboard/dashboard.component';
 import { PerfilComponent } from 'src/components/perfil/perfil.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
+import { GrupoProdutosListaComponent } from 'src/components/grupo-produtos/grupo-produtos-lista/grupo-produtos-lista.component';
+import { GrupoProdutoDetalheComponent } from 'src/components/grupo-produtos/grupo-produto-detalhe/grupo-produto-detalhe.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -32,6 +34,8 @@ import { TituloComponent } from './shared/titulo/titulo.component';
     NavComponent,
     TituloComponent,
     DateFormatPipePipe,
+    GrupoProdutosListaComponent,
+    GrupoProdutoDetalheComponent,
   ],
   imports: [
     BrowserModule,

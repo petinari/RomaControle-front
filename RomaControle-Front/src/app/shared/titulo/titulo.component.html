@@ -1,3 +1,13 @@
-<h3 class="mt-2">
-  {{ this.titulo }}
-</h3>
+<div class="d-flex p-3 my-3 text-white-50 bg-secondary rounded shadow-sm">
+  <div class="d-flex align-items-center mr-auto">
+    <i class="{{ iconClass }}"></i>
+    <div class="lh-100">
+      <h4 class="mb-0 text-white lh-100">{{ this.titulo }}</h4>
+
+      <small>{{ this.subtitulo }}</small>
+    </div>
+  </div>
+  <div>
+    <button *ngIf="listarButton" class="btn btn-outline-light">Listar {{ this.titulo }}</button>
+  </div>
+</div>

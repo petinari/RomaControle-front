@@ -1,0 +1,79 @@
+<app-titulo
+  [titulo]="'Eventos'"
+  [iconClass]="'fa fa-user'"
+  [listarButton]="true"
+></app-titulo>
+
+<hr />
+
+<div class="card rounded shadow-lg p-3">
+  <div class="d-flex">
+    <div class="flex-fill">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro</div>
+        </div>
+        <input
+          type="text"
+          class="form-control mr-2"
+          placeholder="Buscar"
+          [(ngModel)]="filtroGrupoProdutos"
+        />
+      </div>
+    </div>
+    <div>
+      <a class="d-flex btn btn-outline-primary" href="">
+        <i class="fa fa-plus-circle my-1 mr-1"></i>
+        <b class="d-none d-sm-block">Novo</b>
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr class="text-center">
+        <th style="width: 30.66%">#</th>
+        <th>Nome</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="grupoProdutos">
+      <tr
+        class="text-center"
+        *ngFor="let grupoProduto of grupoProdutosFiltrados"
+      >
+        <td>{{ grupoProduto.id }}</td>
+        <td>{{ grupoProduto.nome }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            tooltip="Excluir grupo"
+            (click)="openModal(template)"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!grupoProdutos.length">
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nenhum grupo encontrado.</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Confirma a operação?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">
+      Sim
+    </button>
+    <button type="button" class="btn btn-primary" (click)="decline()">
+      Não
+    </button>
+  </div>
+</ng-template>
