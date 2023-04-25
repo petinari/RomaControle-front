@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light shadow-lg"
+  *ngIf="showMenu()"
+>
   <a class="navbar-brand" href="#">Roma Controle</a>
   <button
     class="navbar-toggler"
@@ -22,7 +25,7 @@
         <a
           class="nav-link"
           routerLinkActive="active"
-          routerLink="grupodeprodutos"
+          routerLink="grupodeprodutos/lista"
           >Grupo Produtos</a
         >
       </li>
@@ -49,15 +52,9 @@
           class="dropdown-menu border-dark dropdown-menu-right"
           aria-labelledby="navbarDropdownMenuLink"
         >
-          <a
-            class="dropdown-item"
-            routerLinkActive="active"
-            routerLink="perfil"
-          >
-            Perfil
-          </a>
+          <a class="dropdown-item" routerLink="usuario/perfil"> Perfil </a>
           <div role="separator" class="divider"></div>
-          <a class="dropdown-item" routerLink> Sair </a>
+          <a class="dropdown-item" routerLink="usuario/login"> Sair </a>
         </div>
       </li>
     </ul>

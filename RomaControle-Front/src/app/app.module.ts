@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DateFormatPipePipe } from './helpers/DateFormatPipe.pipe';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -18,10 +18,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContatosComponent } from 'src/components/contatos/contatos.component';
 import { DashboardComponent } from 'src/components/dashboard/dashboard.component';
-import { PerfilComponent } from 'src/components/perfil/perfil.component';
+import { PerfilComponent } from 'src/components/usuario/perfil/perfil.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { GrupoProdutosListaComponent } from 'src/components/grupo-produtos/grupo-produtos-lista/grupo-produtos-lista.component';
 import { GrupoProdutoDetalheComponent } from 'src/components/grupo-produtos/grupo-produto-detalhe/grupo-produto-detalhe.component';
+import { UsuarioComponent } from 'src/components/usuario/usuario.component';
+import { LoginComponent } from 'src/components/usuario/login/login.component';
+import { RegistroComponent } from 'src/components/usuario/registro/registro.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -36,6 +39,10 @@ import { GrupoProdutoDetalheComponent } from 'src/components/grupo-produtos/grup
     DateFormatPipePipe,
     GrupoProdutosListaComponent,
     GrupoProdutoDetalheComponent,
+    UsuarioComponent,
+    LoginComponent,
+    RegistroComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import { GrupoProdutoDetalheComponent } from 'src/components/grupo-produtos/grup
     CollapseModule.forRoot(),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),

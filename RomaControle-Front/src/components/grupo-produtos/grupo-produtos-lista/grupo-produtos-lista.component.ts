@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +15,7 @@ export class GrupoProdutosListaComponent implements OnInit {
   modalRef?: BsModalRef;
   message?: string;
   public grupoProdutos: GrupoProdutos[] = [];
+
   private _filtroGrupoProdutos: string = '';
   grupoProdutosFiltrados: GrupoProdutos[] = [];
 
@@ -46,7 +48,8 @@ export class GrupoProdutosListaComponent implements OnInit {
     private grupoProdutosService: GrupoProdutosService,
     private modalService: BsModalService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -80,5 +83,10 @@ export class GrupoProdutosListaComponent implements OnInit {
       (grupo: { nome: any }) =>
         grupo.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
+  }
+
+  //navigate to grupo produtos details
+  selecionaGrupoProduto(id: string) {
+    this.router.navigate(['/grupodeprodutos/detalhe', id]);
   }
 }
