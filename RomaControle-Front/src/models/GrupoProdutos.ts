@@ -4,3 +4,5 @@ export interface GrupoProdutos {
   idTenant: string;
   ativo: boolean;
 }
+
+
