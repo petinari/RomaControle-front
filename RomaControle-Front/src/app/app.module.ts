@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -61,9 +61,9 @@ import { RegistroComponent } from 'src/components/usuario/registro/registro.comp
       preventDuplicates: true,
       progressBar: true,
     }),
-    NgxSpinnerModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
   ],
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
 })
 export class AppModule {}

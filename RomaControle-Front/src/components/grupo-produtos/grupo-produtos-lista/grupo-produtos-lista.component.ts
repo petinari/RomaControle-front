@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GrupoProdutos } from 'src/models/GrupoProdutos';
 import { GrupoProdutosService } from 'src/services/GrupoProdutos.service';
 
+
 @Component({
   selector: 'app-grupo-produtos-lista',
   templateUrl: './grupo-produtos-lista.component.html',
@@ -19,14 +20,21 @@ export class GrupoProdutosListaComponent implements OnInit {
   private _filtroGrupoProdutos: string = '';
   grupoProdutosFiltrados: GrupoProdutos[] = [];
 
-  openModal(template: TemplateRef<any>) {
+  openModal(event: any, template: TemplateRef<any>, nomeGrupoProduto: string) {
+    event.stopPropagation();
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
-  confirm(): void {
-    this.message = 'Confirmed!';
+  confirm(id: any): void {
     this.modalRef?.hide();
-    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.spinner.show();
+    this.grupoProdutosService.desabilitaGrupoProdutos(id).subscribe(
+      (result) => {
+        this.toastr.success('Grupo de produtos desabilitado com sucesso!', 'Sucesso!');
+        this.getGrupoProdutos();
+      }
+    );
+
   }
 
   decline(): void {
