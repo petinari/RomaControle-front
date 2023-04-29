@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -8,6 +10,7 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {GrupoProdutosService} from "../../../services/GrupoProdutos.service";
 import {GrupoProdutos} from "../../../models/GrupoProdutos";
+import {SubGrupoProduto} from "../../../models/sub-grupo-produto";
 import {NgxSpinner, NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 
@@ -21,6 +24,13 @@ export class GrupoProdutoDetalheComponent implements OnInit {
   grupoProduto = {} as GrupoProdutos
   estadoSalvar: any = 'post';
   grupoProdutoId: string | null = '';
+  grupoProdutoAtual = {
+    id: '',
+    nome: '',
+    idTenant: '',
+    ativo: false,
+    indice: 0,
+  } as GrupoProdutos;
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private grupoProdutosService: GrupoProdutosService,
   private spinner: NgxSpinnerService, private toastr: ToastrService, private router: Router) {}
 
@@ -28,6 +38,17 @@ export class GrupoProdutoDetalheComponent implements OnInit {
     this.carregarEvento();
     this.validation();
 
+  }
+  get f(): any {
+    return this.form.controls;
+  }
+  public cssValidator(campoForm: FormControl | AbstractControl, index): any {
+    console.log(index + " asdaasdasdasd")
+    return;
+  }
+
+  get subGrupos(): FormArray {
+    return this.form.get('subGrupos') as FormArray;
   }
 
   //função que carrega o evento de acordo com o ID
@@ -65,6 +86,22 @@ export class GrupoProdutoDetalheComponent implements OnInit {
         ],
       ],
       ativo: [true, Validators.required],
+      subGrupos: this.fb.array([]),
+    });
+  }
+
+  // função que adiciona subgrupos
+  public adicionarSubGrupo(): void {
+
+    this.subGrupos.push(this.criarSubGrupo({ id: '', nome: '', id_grupo: '', ativo: true, id_tenant: '' }));
+  }
+
+  // função que retorna formGroup de subgrupos
+  public criarSubGrupo(subGrupo: SubGrupoProduto): FormGroup {
+    return this.fb.group({
+      id: [subGrupo.id],
+      nome: [subGrupo.nome, Validators.required],
+      ativo: [subGrupo.ativo, Validators.required]
     });
   }
 
@@ -99,4 +136,6 @@ export class GrupoProdutoDetalheComponent implements OnInit {
   public resetForm(): void {
     this.form.reset();
   }
+
+
 }

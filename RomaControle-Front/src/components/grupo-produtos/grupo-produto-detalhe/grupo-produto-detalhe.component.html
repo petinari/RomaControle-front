@@ -1,49 +1,148 @@
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-<form [formGroup]="form">
+<div>
+  <form [formGroup]="form">
 
-  <div class="p-3">
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label>Nome</label>
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{
+    <div class="p-3">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
             'is-invalid': form.controls['nome'].invalid && form.controls['nome'].touched,
           }"
-          placeholder="Insira o nome do grupo"
-          formControlName="nome"
-        />
-        <div class="invalid-feedback">
-          Nome é obrigatório e deve ter entre 3 e 50 caracteres.
-        </div>
-        <div class="form-check m-1">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value="true"
-            id="checkBoxAtivo"
-            formControlName="ativo"
+            placeholder="Insira o nome do grupo"
+            formControlName="nome"
           />
-          <label class="form-check-label" for="checkBoxAtivo"> Ativo </label>
+          <div class="invalid-feedback">
+            Nome é obrigatório e deve ter entre 3 e 50 caracteres.
+          </div>
+          <div class="form-check m-1">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="true"
+              id="checkBoxAtivoGrupo"
+              formControlName="ativo"
+            />
+            <label class="form-check-label" for="checkBoxAtivoGrupo"> Ativo </label>
+          </div>
         </div>
       </div>
     </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        <button
+          (click)="resetForm()"
+          class="btn btn-outline-secondary mr-auto border"
+        >
+          Cancelar Alteração
+        </button>
+        <button (click)="salvarGrupoProduto()" class="btn btn-success" [disabled]="form.invalid">
+
+          Salvar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="card rounded shadow-sm mt-4">
+  <div class="p-3">
+    <div class="d-flex border-bottom">
+      <h2 class="mr-auto">
+       Subgrupos
+      </h2>
+
+    </div>
+    <p>Clique em (+ Subgrupos) para adicionar um subgrupo</p>
+    <div class="form-row p-1">
+      <div class="col">
+        <form formArrayName="subGrupos" *ngFor="let subgrupo of subGrupos.controls; let i=index">
+          <fieldset class="form-group">
+            <legend class="d-flex justify-content-between capitalize">
+              <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
+                      tooltip="Excluir Lote"
+                      [adaptivePosition]="false"
+                      [delay]="500"
+                      placement="left">
+                <i class="fa fa-window-close my-1"></i>
+                <b class="ml-1 d-none d-sm-block">Excluir</b>
+              </button>
+            </legend>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>Nome</label>
+                <!-- input with ngclass thats validate the control in the formArray -->
+                <input
+                  (click)="cssValidator(null, i)"
+                  [ngClass]="{'is-invalid': subgrupo.get(i+'.nome').errors && subgrupo.get(i+'.nome').touched}"
+                  type="text" class="form-control" formControlName="nome" placeholder="Subgrupo">
+              </div>
+            </div>
+            <div class="form-check m-1">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+                id="checkBoxAtivoSubGrupo"
+                formControlName="ativo"
+              />
+              <label class="form-check-label" for="checkBoxAtivoSubGrupo"> Ativo </label>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <button (click)="adicionarSubGrupo()" class="d-flex btn btn-outline-primary">
+      <i class="fa fa-plus-circle my-1"></i>
+      <b class="ml-1">Subgrupo</b>
+    </button>
   </div>
   <div class="card-footer">
     <div class="d-flex">
-      <button
-        (click)="resetForm()"
-        class="btn btn-outline-secondary mr-auto border"
-      >
+      <button class="btn btn-outline-secondary mr-auto border">
         Cancelar Alteração
       </button>
-      <button (click)="salvarGrupoProduto()" class="btn btn-success" [disabled]="form.invalid">
-
-        Salvar Evento
+      <button class="btn btn-success">
+        Salvar Subgrupo
       </button>
     </div>
   </div>
-</form>
+</div>
+
+
+
+
+<style type="text/css">
+
+  .iconesSociais {
+    color: rgb(94, 94, 94);
+  }
+
+  .capitalize {
+    text-transform: capitalize;
+    border-bottom: 1px solid rgb(226, 226, 226);
+    color: silver;
+  }
+
+  .tab-pane {
+    padding: 20px 8px 8px;
+    border-top: 0px;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+  }
+
+  .card-evento {
+    position: sticky;
+    --default-height: 25px;
+    top: var(--default-height);
+  }
+
+</style>
+
 
 
