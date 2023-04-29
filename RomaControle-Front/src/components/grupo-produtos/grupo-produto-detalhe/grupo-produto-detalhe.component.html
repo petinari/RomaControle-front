@@ -59,9 +59,9 @@
     </div>
     <p>Clique em (+ Subgrupos) para adicionar um subgrupo</p>
     <div class="form-row p-1">
-      <div class="col">
-        <form formArrayName="subGrupos" *ngFor="let subgrupo of subGrupos.controls; let i=index">
-          <fieldset class="form-group">
+      <div [formGroup]="form" class="col">
+        <div formArrayName="subGrupos" *ngFor="let subgrupo of subGrupos.controls; let i=index">
+          <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
               <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                       tooltip="Excluir Lote"
@@ -77,8 +77,8 @@
                 <label>Nome</label>
                 <!-- input with ngclass thats validate the control in the formArray -->
                 <input
-                  (click)="cssValidator(null, i)"
-                  [ngClass]="{'is-invalid': subgrupo.get(i+'.nome').errors && subgrupo.get(i+'.nome').touched}"
+                  [ngClass]="cssValidator(subGrupos.get(i+'.nome'))"
+
                   type="text" class="form-control" formControlName="nome" placeholder="Subgrupo">
               </div>
             </div>
@@ -93,7 +93,7 @@
               <label class="form-check-label" for="checkBoxAtivoSubGrupo"> Ativo </label>
             </div>
           </fieldset>
-        </form>
+        </div>
       </div>
     </div>
     <button (click)="adicionarSubGrupo()" class="d-flex btn btn-outline-primary">

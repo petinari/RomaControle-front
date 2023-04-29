@@ -21,16 +21,12 @@ import {ToastrService} from "ngx-toastr";
 })
 export class GrupoProdutoDetalheComponent implements OnInit {
   form!: FormGroup;
+
   grupoProduto = {} as GrupoProdutos
+  _subGrupoProduto = {} as SubGrupoProduto
   estadoSalvar: any = 'post';
   grupoProdutoId: string | null = '';
-  grupoProdutoAtual = {
-    id: '',
-    nome: '',
-    idTenant: '',
-    ativo: false,
-    indice: 0,
-  } as GrupoProdutos;
+
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private grupoProdutosService: GrupoProdutosService,
   private spinner: NgxSpinnerService, private toastr: ToastrService, private router: Router) {}
 
@@ -42,9 +38,8 @@ export class GrupoProdutoDetalheComponent implements OnInit {
   get f(): any {
     return this.form.controls;
   }
-  public cssValidator(campoForm: FormControl | AbstractControl, index): any {
-    console.log(index + " asdaasdasdasd")
-    return;
+  public cssValidator(campoForm: FormControl | AbstractControl): any {
+    return { 'is-invalid': campoForm.errors && campoForm.touched };
   }
 
   get subGrupos(): FormArray {
@@ -93,7 +88,8 @@ export class GrupoProdutoDetalheComponent implements OnInit {
   // função que adiciona subgrupos
   public adicionarSubGrupo(): void {
 
-    this.subGrupos.push(this.criarSubGrupo({ id: '', nome: '', id_grupo: '', ativo: true, id_tenant: '' }));
+    this.subGrupos.push(this.criarSubGrupo(this._subGrupoProduto));
+
   }
 
   // função que retorna formGroup de subgrupos
@@ -136,6 +132,7 @@ export class GrupoProdutoDetalheComponent implements OnInit {
   public resetForm(): void {
     this.form.reset();
   }
+
 
 
 }
